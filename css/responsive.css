@@ -1,0 +1,47 @@
+.about-wrapper{
+
+grid-template-columns:1fr;
+
+}
+
+.about{
+
+padding:80px 25px;
+
+}
+
+.section-title h2{
+
+font-size:36px;
+
+}
+
+.about-info{
+
+grid-template-columns:1fr;
+
+}
+
+.skills{
+
+padding:80px 25px;
+
+}
+
+.skills-grid{
+
+grid-template-columns:1fr;
+
+}
+
+.timeline{
+
+padding-left:25px;
+
+}
+
+.timeline-content{
+
+padding:25px;
+
+}
