@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rakesh Nayak · UX Lead · Q&A</title>
+  <!-- Google Fonts: Poppins & Noto Sans Oriya -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Oriya:wght@400;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+  	 * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #f0f4fa;
+      font-family: 'Poppins', 'Noto Sans Oriya', sans-serif;
+      color: #1a283c;
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ----- main layout: sidebar + content (full width) ----- */
+    .app-layout {
+      display: flex;
+      flex: 1;
+      width: 100%;
+      max-width: 1440px;
+      margin: 0 auto;
+      background: #ffffff;
+      box-shadow: 0 8px 40px rgba(0, 0, 0, 0.05);
+      min-height: 100vh;
+    }
+
+    /* --- SIDEBAR (left) --- */
+    .sidebar {
+      width: 280px;
+      background: #f8faff;
+      border-right: 1px solid #e6edf6;
+      padding: 2.2rem 1.2rem 2rem;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+      flex-shrink: 0;
+    }
+
+    .sidebar-brand {
+      font-size: 1.6rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: #0b1e33;
+      margin-bottom: 0.2rem;
+      line-height: 1.2;
+    }
+
+    .sidebar-brand span {
+      display: block;
+      font-weight: 400;
+      font-size: 0.9rem;
+      color: #3b5a7a;
+      margin-top: 2px;
+    }
+
+    .sidebar-nav {
+      margin-top: 2.2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .sidebar-nav a {
+      display: block;
+      padding: 0.55rem 0.9rem;
+      border-radius: 40px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: #1f3a57;
+      text-decoration: none;
+      transition: 0.15s ease;
+      border-left: 3px solid transparent;
+      background: transparent;
+    }
+
+    .sidebar-nav a:hover {
+      background: #e9f0fa;
+      border-left-color: #2b6a9e;
+      color: #0b1e33;
+    }
+
+    .sidebar-nav a.active {
+      background: #0c3970;
+      border-left-color: #1e5b8a;
+      font-weight: 600;
+      color: #ffffff;
+    }
+
+    .sidebar-nav .q-badge {
+      display: inline-block;
+      background: #d3e0ee;
+      border-radius: 30px;
+      padding: 0 8px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: #1e4b70;
+      margin-right: 6px;
+    }
+
+    /* --- MAIN CONTENT (full width) --- */
+    .main-content {
+      flex: 1;
+      padding: 2.5rem 3rem 3rem;
+      background: #ffffff;
+      width: 100%;
+      overflow-x: hidden;
+    }
+
+    /* header inside main */
+    .profile-header {
+      margin-bottom: 1.8rem;
+      /* border-bottom: 2px solid #eef2f8; */
+      /* padding-bottom: 1.8rem; */
+      display: none;
+    }
+
+    .profile-header h1 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      background: linear-gradient(145deg, #0b1e33, #2b4b6f);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1.2;
+    }
+
+    .profile-header .subhead {
+      font-size: 1.2rem;
+      font-weight: 500;
+      color: #b9cce0;
+      background: #172e4c;
+      display: inline-block;
+      padding: 0.2rem 1.8rem;
+      border-radius: 60px;
+      margin-top: 0.2rem;
+    }
+
+    .profile-header .badge {
+      margin-top: 0.4rem;
+      color: #2b4b6f;
+      font-weight: 400;
+      font-size: 0.95rem;
+    }
+
+    /* Q&A blocks */
+ .qa-block {
+    margin-bottom: 2.8rem;
+    border-radius: 24px;
+    background: #f0f0f0;
+    padding: 1.5rem 2rem 1.8rem;
+    border: 1px solid #eef2f8;
+    transition: 0.15s ease;
+}
+    .qa-block:hover {
+      border-color: #cbd9eb;
+      background: #f8fbff;
+    }
+
+    .question {
+           font-size: 1.9rem;
+    font-weight: 700;
+    color: #ddedff;
+    margin-bottom: 0.9rem;
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    flex-wrap: wrap;
+    background: #005787;
+    align-items: center;
+    padding: 6px;
+}
+
+    .question .q-num {
+    font-weight: 600;
+    color: #000000;
+    background: #e2f500;
+    padding: 0 14px;
+    border-radius: 40px;
+    font-size: 1rem;
+    line-height: 2.2;
+    letter-spacing: 0.3px;
+
+    }
+
+    .answer-en {
+      font-size: 1.05rem;
+      font-weight: 400;
+      color: #1f2c3f;
+      margin-bottom: 0.65rem;
+    }
+
+    .answer-en strong, .answer-en b {
+      font-weight: 600;
+      color: #0b2d4b;
+      background: #e8e8e8;
+      padding: 0 6px;
+      border-radius: 6px;
+    }
+
+  
+  .answer-odia {
+    font-family: 'Noto Sans Oriya', 'Poppins', sans-serif;
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: #1f3853;
+    background: #dadad6;
+    padding: 0.9rem 1.4rem;
+    border-radius: 20px;
+    margin-top: 0.5rem;
+    border-left: 5px solid #b6cddf;
+    word-break: break-word;
+
+    }
+
+    .answer-odia strong, .answer-odia b {
+      font-weight: 700;
+      color: #0e3552;
+      background: #cacac0;
+      padding: 0 4px;
+      border-radius: 4px;
+    }
+
+    /* footer */
+    .footer-note {
+      margin-top: 3.5rem;
+      border-top: 2px solid #e7ecf3;
+      padding-top: 1.8rem;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #3d5c78;
+    }
+
+    .footer-note i {
+      font-style: normal;
+      background: #dee8f2;
+      padding: 0.2rem 1.2rem;
+      border-radius: 60px;
+    }
+
+    /* ----- responsive: mobile / tablet ----- */
+    @media (max-width: 960px) {
+      .app-layout {
+        flex-direction: column;
+      }
+
+      .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+        border-right: none;
+        border-bottom: 1px solid #e0e9f2;
+        padding: 1.2rem 1.5rem 0.8rem;
+        background: #f8faff;
+        overflow-y: visible;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 0.5rem 0.8rem;
+      }
+
+      .sidebar-brand {
+        font-size: 1.3rem;
+        margin-bottom: 0;
+        flex: 0 0 auto;
+      }
+
+      .sidebar-brand span {
+        display: inline;
+        font-size: 0.8rem;
+        margin-left: 6px;
+      }
+
+      .sidebar-nav {
+        flex-direction: row;
+        flex-wrap: wrap;
+        margin-top: 0.2rem;
+        gap: 0.2rem 0.3rem;
+        flex: 1;
+        justify-content: flex-start;
+      }
+
+      .sidebar-nav a {
+        padding: 0.2rem 0.9rem;
+        font-size: 0.8rem;
+        border-left: none;
+        border-bottom: 2px solid transparent;
+        border-radius: 30px;
+        background: #eef4fc;
+        white-space: nowrap;
+      }
+
+      .sidebar-nav a:hover {
+        border-bottom-color: #2b6a9e;
+        background: #e3ecf7;
+      }
+
+      .sidebar-nav a.active {
+        border-bottom-color: #1e5b8a;
+        background: #d9e6f5;
+      }
+
+      .sidebar-nav .q-badge {
+        display: none;
+      }
+
+      .main-content {
+        padding: 1.8rem 1.5rem 2rem;
+      }
+
+      .profile-header h1 {
+        font-size: 2.5rem;
+      }
+
+      .question {
+        font-size: 1.5rem;
+      }
+
+      .qa-block {
+        padding: 1rem 1.2rem 1.4rem;
+      }
+
+      .answer-en {
+        font-size: 1rem;
+      }
+
+      .answer-odia {
+        font-size: 0.9rem;
+        padding: 0.6rem 1rem;
+      }
+    }
+
+    @media (max-width: 550px) {
+      .sidebar {
+        padding: 0.8rem 0.8rem 0.4rem;
+        gap: 0.3rem;
+      }
+      .sidebar-brand {
+        font-size: 1.1rem;
+      }
+      .sidebar-brand span {
+        font-size: 0.7rem;
+      }
+      .sidebar-nav a {
+        font-size: 0.7rem;
+        padding: 0.1rem 0.7rem;
+      }
+      .main-content {
+        padding: 1rem 0.8rem 1.5rem;
+      }
+      .profile-header h1 {
+        font-size: 2rem;
+      }
+      .question {
+        font-size: 1.2rem;
+        gap: 4px;
+      }
+      .question .q-num {
+        font-size: 0.8rem;
+        padding: 0 10px;
+        line-height: 2;
+      }
+      .qa-block {
+        padding: 0.8rem 0.8rem 1rem;
+        border-radius: 18px;
+      }
+      .answer-en {
+        font-size: 0.95rem;
+      }
+      .answer-odia {
+        font-size: 0.85rem;
+        padding: 0.5rem 0.8rem;
+      }
+    }
+
+    /* smooth scroll */
+    html {
+      scroll-behavior: smooth;
+    }
+  </style>
+  <style>
+   
+  </style>
+</head>
+<body>
+<div class="app-layout">
+
+  <!-- LEFT SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+      Rakesh Nayak
+      <span>UI/UX Lead · 8+ yrs</span>
+    </div>
+    <nav class="sidebar-nav" id="sidebarNav">
+      <!-- generated via JS for maintainability, but we keep static fallback -->
+      <a href="#q1" class="active"><span class="q-badge">Q1</span> About</a>
+      <a href="#q2"><span class="q-badge">Q2</span> Happiest Minds</a>
+      <a href="#q3"><span class="q-badge">Q3</span> Design Process</a>
+      <a href="#q4"><span class="q-badge">Q4</span> Design System</a>
+      <a href="#q5"><span class="q-badge">Q5</span> Figma Variables</a>
+      <a href="#q6"><span class="q-badge">Q6</span> Auto Layout</a>
+      <a href="#q7"><span class="q-badge">Q7</span> Components vs Variants</a>
+      <a href="#q8"><span class="q-badge">Q8</span> User Research</a>
+      <a href="#q9"><span class="q-badge">Q9</span> Usability Testing</a>
+      <a href="#q10"><span class="q-badge">Q10</span> Wireframe · Mockup · Proto</a>
+      <a href="#q11"><span class="q-badge">Q11</span> User Personas</a>
+      <a href="#q12"><span class="q-badge">Q12</span> Work with Devs</a>
+      <a href="#q13"><span class="q-badge">Q13</span> Challenging Project</a>
+      <a href="#q14"><span class="q-badge">Q14</span> Mentor Juniors</a>
+      <a href="#q15"><span class="q-badge">Q15</span> Design System from scratch</a>
+      <a href="#q16"><span class="q-badge">Q16</span> Accessibility</a>
+      <a href="#q17"><span class="q-badge">Q17</span> Information Architecture</a>
+      <a href="#q18"><span class="q-badge">Q18</span> Difficult Stakeholders</a>
+      <a href="#q19"><span class="q-badge">Q19</span> Design Reviews</a>
+      <a href="#q20"><span class="q-badge">Q20</span> Prioritize Features</a>
+      <a href="#q21"><span class="q-badge">Q21</span> AI in UX</a>
+      <a href="#q22"><span class="q-badge">Q22</span> Why hire you</a>
+    </nav>
+  </aside>
+
+  <!-- MAIN CONTENT (full width) -->
+  <main class="main-content">
+    <div class="profile-header">
+      <h1>Rakesh Nayak</h1>
+      <div class="subhead">UI/UX Design Lead · 8+ years</div>
+      <div class="badge">✨ Interview Q&amp;A · Figma · Design Systems · Odia &amp; English</div>
+    </div>
+
+    <!-- ============ Q1 ============ -->
+    <section class="qa-block" id="q1">
+      <div class="question"><span class="q-num">Q1</span> Tell me about yourself</div>
+      <div class="answer-en">
+        <strong>Good morning, sir/madam.</strong> Thank you for giving me this opportunity.<br>
+        My name is <strong>Rakesh Nayak</strong>. I have over <strong>8 years</strong> of professional experience in <strong>UI/UX Design</strong> and <strong>Front-end Development</strong>.<br>
+        I completed my Graduation from FM University in 2011. After that, I completed a Multimedia course at Pujitha Computer Academy, Hyderabad, in 2012, and a Web Design course at Arena Animation, Bhubaneswar, in 2013.<br>
+        I started my career as a <strong>Graphic Designer</strong> in print media, where I worked with Adobe Photoshop and CorelDRAW. Later, I moved into <strong>UI/UX Design</strong> and <strong>Front-end Development</strong>.<br>
+        I have worked on <strong>enterprise applications, business websites, e‑commerce websites, dashboards, and responsive web applications</strong>.<br>
+        My expertise includes <strong>User Research, User Flows, Wireframing, Prototyping, Design Systems, and Usability Testing</strong>.<br>
+        I have strong experience with <strong>Figma, Design Systems, Photoshop, HTML, CSS, and JavaScript</strong>, which helps me work effectively with designers and developers. I enjoy solving user problems and improving the user experience. I believe my experience is a good match for this role, and I'm excited to be part of your team.
+      </div>
+      <div class="answer-odia">
+        <strong>ସୁପ୍ରଭାତ ସାର୍/ମ୍ୟାଡାମ।</strong> ମୋତେ ଏହି ସୁଯୋଗ ଦେଇଥିବାରୁ ଧନ୍ୟବାଦ।<br>
+        ମୋ ନାମ <strong>ରାକେଶ ନାୟକ</strong>। UI/UX Design ଏବଂ Front-end Development କ୍ଷେତ୍ରରେ ମୋର <strong>୮ ବର୍ଷରୁ ଅଧିକ</strong> ପେଶାଦାର ଅନୁଭବ ଅଛି।<br>
+        ମୁଁ ୨୦୧୧ ମସିହାରେ FM University ରୁ Graduation ସମ୍ପୂର୍ଣ୍ଣ କରିଛି। ତାପରେ ୨୦୧୨ ମସିହାରେ Hyderabad ର Pujitha Computer Academy ରୁ Multimedia Course ଏବଂ ୨୦୧୩ ମସିହାରେ Bhubaneswar ର Arena Animation ରୁ Web Design Course ସମ୍ପୂର୍ଣ୍ଣ କରିଛି।<br>
+        ମୁଁ ମୋର Career କୁ Print Media ରେ <strong>Graphic Designer</strong> ଭାବେ ଆରମ୍ଭ କରିଥିଲି, ଯେଉଁଠାରେ Adobe Photoshop ଏବଂ CorelDRAW ସହ କାମ କରୁଥିଲି। ପରେ ମୁଁ <strong>UI/UX Design</strong> ଏବଂ <strong>Front-end Development</strong> କ୍ଷେତ୍ରକୁ ଆସିଲି।<br>
+        ମୁଁ <strong>Enterprise Application, Business Website, E‑commerce Website, Dashboard</strong> ଏବଂ <strong>Responsive Web Application</strong> ଭଳି ବିଭିନ୍ନ ପ୍ରକାରର Project ଉପରେ କାମ କରିଛି।<br>
+        ମୋର <strong>User Research, User Flow, Wireframing, Prototyping, Design System</strong> ଏବଂ <strong>Usability Testing</strong> ରେ ଭଲ ଅନୁଭବ ଅଛି।<br>
+        <strong>Figma, Design System, Photoshop, HTML, CSS</strong> ଏବଂ <strong>JavaScript</strong> ରେ ମୋର ଭଲ ଅନୁଭବ ଅଛି। ଏହି Skill ଗୁଡ଼ିକ ମୋତେ Designer ଏବଂ Developer ମାନଙ୍କ ସହ ଭଲ ଭାବରେ କାମ କରିବାରେ ସାହାଯ୍ୟ କରେ। ମୁଁ User ଙ୍କର ସମସ୍ୟା ବୁଝି ଏକ ସରଳ, ସହଜ ଏବଂ ଭଲ User Experience ତିଆରି କରିବାକୁ ପସନ୍ଦ କରେ।<br>
+        ମୋର ବିଶ୍ୱାସ ଯେ ଏହି Role ପାଇଁ ମୋର ଅନୁଭବ ଏବଂ Skill ଉପଯୁକ୍ତ। ଆପଣଙ୍କ Team ସହ କାମ କରିବା ଏବଂ Company ର ସଫଳତାରେ ମୋର ଅବଦାନ ରଖିବାକୁ ମୁଁ ଉତ୍ସାହିତ।
+      </div>
+    </section>
+
+    <!-- Q2 -->
+    <section class="qa-block" id="q2">
+      <div class="question"><span class="q-num">Q2</span> Why do you want to join Happiest Minds?</div>
+      <div class="answer-en">
+        I want to join <strong>Happiest Minds</strong> because it is known for <strong>digital transformation, innovation, and user-centered design</strong>. I see this as a great opportunity to work on enterprise-level products, collaborate with an experienced team, and continue growing as a <strong>UX Design Lead</strong>. I believe my experience in <strong>UX Design, Figma, Design Systems, and User Research</strong> is a good match for this role, and I would like to contribute to your team.
+      </div>
+      <div class="answer-odia">
+        ମୁଁ <strong>Happiest Minds</strong> ରେ ଯୋଗଦେବାକୁ ଚାହୁଁଛି କାରଣ ଏହା <strong>Digital Transformation, Innovation</strong> ଏବଂ <strong>User-Centered Design</strong> ପାଇଁ ପରିଚିତ। ମୋ ପାଇଁ ଏହା Enterprise Level Product ଉପରେ କାମ କରିବା, ଅଭିଜ୍ଞ Team ସହ କାମ କରିବା ଏବଂ <strong>UX Design Lead</strong> ଭାବେ ଆହୁରି ଶିଖିବା ଓ ଆଗକୁ ବଢ଼ିବାର ଏକ ଭଲ ସୁଯୋଗ। ମୋର <strong>UX Design, Figma, Design System</strong> ଏବଂ <strong>User Research</strong> ର ଅନୁଭବ ଏହି Role ସହ ଭଲ ମେଳ ଖାଉଛି, ଏବଂ ମୁଁ ଆପଣଙ୍କ Team ରେ ମୋର ଅବଦାନ ରଖିବାକୁ ଚାହୁଁଛି।
+      </div>
+    </section>
+
+    <!-- Q3 -->
+    <section class="qa-block" id="q3">
+      <div class="question"><span class="q-num">Q3</span> What is your design process?</div>
+      <div class="answer-en">
+        First, I understand the client's <strong>business goals, product vision, and project requirements</strong>.<br>
+        Before starting any design, I carefully review the existing website or application, business documents, product requirements, and available content to understand the current system.<br>
+        Then I discuss my understanding with my senior and junior team members. I like to hear different ideas and experiences because it helps me gain more knowledge and find the best solution before starting the design.<br>
+        If I need more clarity, I discuss it with the stakeholders before starting the next step.<br>
+        I also use AI tools like <strong>ChatGPT and Figma AI</strong> to generate ideas, improve content, explore design concepts, and speed up my design process. However, I always review and validate the output before using it in the final design.<br>
+        Then I create <strong>user personas, user flows, and simple wireframes</strong> to show the user journey and how users will interact with the product.<br>
+        Once the team reviews and approves the flow, I create <strong>high‑fidelity UI designs in Figma</strong> using Design Systems, Auto Layout, Components, Variables, and reusable patterns.<br>
+        After completing the UI design, I review it with my UX team, developers, and stakeholders. We discuss the design, collect feedback, and make the required improvements.<br>
+        Then I create a <strong>clickable prototype in Figma</strong>. I connect all the screens with buttons and navigation so users can experience the complete flow. I also add animations, hover effects, tooltips, transitions, and other interactions wherever needed. This helps users, stakeholders, and developers understand how the final product will look and work before development starts.<br>
+        Next, I present the prototype to users and stakeholders for <strong>usability testing</strong>. Based on their feedback, I refine the design until everyone is satisfied.<br>
+        Finally, I hand over the approved design to developers through <strong>Figma Dev Mode</strong>. I explain the design specifications and interactions and support the developers during implementation.<br>
+        While designing the UI, I pay special attention to <strong>typography, color theory, color palettes, web colors, visual hierarchy, spacing, grid system, alignment, accessibility, and responsive design</strong>. I also define font family, font size, font weight, line height, letter spacing, text color, icons, buttons, components, and reusable patterns to maintain consistency across the product.<br>
+        Before handing off the design, I prepare complete design specifications, including colors, typography, spacing, padding, margins, border radius, icons, images, interactions, and responsive behavior, so developers can implement the design accurately.
+      </div>
+      <div class="answer-odia">
+        <strong>ପ୍ରଥମେ</strong> ମୁଁ Client ଙ୍କର Business Goal, Product Vision ଏବଂ Project Requirement କୁ ଭଲଭାବରେ ବୁଝେ।<br>
+        କୌଣସି Design ଆରମ୍ଭ କରିବା ପୂର୍ବରୁ, ମୁଁ ପୁରୁଣା Website କିମ୍ବା Application, Business Document, Product Requirement ଏବଂ ଉପଲବ୍ଧ Content କୁ ଭଲଭାବରେ Review କରି ବର୍ତ୍ତମାନର System କୁ ବୁଝେ।<br>
+        ତାପରେ ମୁଁ ମୋର Senior ଏବଂ Junior Team ସହ ମୋର ବୁଝାମଣା Share କରେ। ସେମାନଙ୍କର ଭିନ୍ନ ଭିନ୍ନ Idea ଏବଂ Experience ଶୁଣେ, କାରଣ ସେଥିରୁ ମୋତେ ନୂଆ Knowledge ମିଳେ ଏବଂ Design ଆରମ୍ଭ କରିବା ପୂର୍ବରୁ ସର୍ବୋତ୍ତମ Solution ବାଛିବାରେ ସାହାଯ୍ୟ ମିଳେ।<br>
+        ଯଦି କୌଣସି Requirement କିମ୍ବା Information ସ୍ପଷ୍ଟ ନଥାଏ, ତେବେ ମୁଁ Stakeholder ଙ୍କ ସହ ଆଲୋଚନା କରି ସେହି ବିଷୟକୁ ସ୍ପଷ୍ଟ କରେ, ତାପରେ ପରବର୍ତ୍ତୀ Step କୁ ଯାଏ।<br>
+        ମୁଁ <strong>ChatGPT, Figma AI</strong> ଏବଂ ଅନ୍ୟାନ୍ୟ AI Tool ର ସାହାଯ୍ୟ ମଧ୍ୟ ନିଏ। AI ମୋତେ ନୂଆ Idea ଖୋଜିବା, Content Improve କରିବା, Design Concept Explore କରିବା ଏବଂ କିଛି Repetitive କାମକୁ ଶୀଘ୍ର କରିବାରେ ସାହାଯ୍ୟ କରେ। କିନ୍ତୁ Final Design ରେ ବ୍ୟବହାର କରିବା ପୂର୍ବରୁ ସବୁକିଛିକୁ ମୁଁ ନିଜେ Review ଏବଂ Validate କରେ।<br>
+        ତାପରେ ମୁଁ <strong>User Persona, User Flow</strong> ଏବଂ Basic Wireframe ପ୍ରସ୍ତୁତ କରେ, ଯାହାଦ୍ୱାରା User Journey ଏବଂ User କିପରି Product ବ୍ୟବହାର କରିବେ ତାହା ସ୍ପଷ୍ଟ ହୁଏ।<br>
+        Team ର Review ଏବଂ Approval ପରେ, ମୁଁ <strong>Figma</strong> ରେ Design System, Auto Layout, Components, Variables ଏବଂ Reusable Pattern ବ୍ୟବହାର କରି High‑Fidelity UI Design ପ୍ରସ୍ତୁତ କରେ।<br>
+        UI Design ସମ୍ପୂର୍ଣ୍ଣ ହେବା ପରେ, ମୁଁ UX Team, Developer ଏବଂ Stakeholder ଙ୍କ ସହ Design Review କରେ। ଆମେ ସମସ୍ତେ ମିଶି Design ଉପରେ ଆଲୋଚନା କରୁ, Feedback ନେଉ ଏବଂ ଆବଶ୍ୟକ ପରିବର୍ତ୍ତନ କରୁ।<br>
+        ତାପରେ ମୁଁ Figma ରେ ଏକ <strong>Clickable Prototype</strong> ତିଆରି କରେ। ସମସ୍ତ Screen କୁ Button ଏବଂ Navigation ଦ୍ୱାରା Link କରେ, ଯାହାଦ୍ୱାରା User ସମ୍ପୂର୍ଣ୍ଣ Flow କୁ ଅନୁଭବ କରିପାରନ୍ତି। ଆବଶ୍ୟକ ହେଲେ Animation, Hover Effect, Tooltip, Transition ଏବଂ ଅନ୍ୟାନ୍ୟ Interaction ଯୋଡ଼େ, ଯାହାଦ୍ୱାରା User, Stakeholder ଏବଂ Developer ମାନେ Development ଆରମ୍ଭ ପୂର୍ବରୁ Final Product କିପରି ଦେଖାଯିବ ଏବଂ କାମ କରିବ ତାହା ସହଜରେ ବୁଝିପାରନ୍ତି।<br>
+        ତାପରେ ମୁଁ Prototype କୁ User ଏବଂ Stakeholder ଙ୍କ ସହ Share କରି <strong>Usability Testing</strong> କରେ। ସେମାନଙ୍କର Feedback ଅନୁଯାୟୀ Design କୁ ଆହୁରି Improve କରେ, ଯେପର୍ଯ୍ୟନ୍ତ ସମସ୍ତେ ସନ୍ତୁଷ୍ଟ ନହୋନ୍ତି।<br>
+        <strong>ଶେଷରେ, ମୁଁ Final Approved Design କୁ Figma Dev Mode</strong> ମାଧ୍ୟମରେ Developer ଙ୍କୁ Handoff କରେ। ପରେ Design Specification, Interaction ଏବଂ ଆବଶ୍ୟକ ସମସ୍ତ Information ବୁଝାଇଦିଏ ଏବଂ Development ସମୟରେ Developer ମାନଙ୍କୁ Support କରେ, ଯାହାଦ୍ୱାରା Final Product Design ଅନୁଯାୟୀ ସଠିକ୍ ଭାବରେ ତିଆରି ହୁଏ।<br>
+        High‑Fidelity UI Design କରିବା ସମୟରେ ମୁଁ <strong>Typography, Color Theory, Color Palette, Web Color, Visual Hierarchy, Grid System, Spacing, Alignment, Accessibility</strong> ଏବଂ <strong>Responsive Design</strong> ଉପରେ ବିଶେଷ ଧ୍ୟାନ ଦିଏ।<br>
+        ଏହା ସହିତ Font Family, Font Size, Font Weight, Line Height, Letter Spacing, Text Color, Icon, Button, Component ଏବଂ ଅନ୍ୟାନ୍ୟ Reusable UI Element କୁ Design System ଅନୁଯାୟୀ ସେଟ୍ କରେ, ଯାହାଦ୍ୱାରା ସମଗ୍ର Product ରେ ଏକରୂପତା (Consistency) ବଜାୟ ରହେ।<br>
+        Developer ଙ୍କୁ Design Handoff କରିବା ପୂର୍ବରୁ, ମୁଁ ସମସ୍ତ Design Specification ପ୍ରସ୍ତୁତ କରେ। ଯେପରିକି Font, Color Code, Typography, Spacing, Padding, Margin, Border Radius, Icon, Image, Interaction, Component State ଏବଂ Responsive Behavior, ଯାହାଦ୍ୱାରା Developer ମାନେ କୌଣସି ଅସୁବିଧା ବିନା Design କୁ ସଠିକ୍ ଭାବରେ Develop କରିପାରନ୍ତି।
+      </div>
+    </section>
+
+    <!-- ===== Q4–Q22 (condensed, complete) ===== -->
+    <!-- Q4 -->
+    <section class="qa-block" id="q4">
+      <div class="question"><span class="q-num">Q4</span> What is a Design System?</div>
+      <div class="answer-en">A <strong>Design System</strong> is a collection of reusable components, colors, typography, icons, spacing, and design guidelines. It helps designers and developers maintain <strong>consistency</strong>, save time, and build better products. In Figma, I use <strong>Components, Variants, Variables, and Team Libraries</strong> to create and manage the Design System.</div>
+      <div class="answer-odia"><strong>Design System</strong> ମାନେ ହେଉଛି Button, Color, Font, Icon, Spacing ଏବଂ Design Rule ଭଳି Reusable Element ଗୁଡ଼ିକର ଏକ Collection। ଏହା ଦ୍ୱାରା ସମସ୍ତ Screen ରେ ଏକରକମ Design ରହେ, ସମୟ ବଞ୍ଚେ ଏବଂ Designer ଓ Developer ମାନେ ସହଜରେ ଏକାଠି କାମ କରିପାରନ୍ତି। <strong>Figma</strong> ରେ ମୁଁ <strong>Components, Variants, Variables</strong> ଏବଂ <strong>Team Library</strong> ବ୍ୟବହାର କରି Design System କୁ ତିଆରି ଏବଂ Maintain କରେ।</div>
+    </section>
+
+    <!-- Q5 -->
+    <section class="qa-block" id="q5">
+      <div class="question"><span class="q-num">Q5</span> What are Figma Variables?</div>
+      <div class="answer-en"><strong>Variables</strong> are reusable values in Figma. They help manage colors, spacing, typography, border radius, and other design properties from one place. Variables make design systems <strong>scalable</strong> and easy to maintain.</div>
+      <div class="answer-odia"><strong>Figma Variables</strong> ହେଉଛି Reusable Value, ଯାହାକୁ ଗୋଟିଏ ସ୍ଥାନରୁ Manage କରାଯାଇପାରେ। ଏହା ଦ୍ୱାରା Color, Spacing, Typography, Border Radius ଏବଂ ଅନ୍ୟାନ୍ୟ Design Property କୁ ଏକ ସ୍ଥାନରୁ ନିୟନ୍ତ୍ରଣ କରିହେବ। ଗୋଟିଏ Variable କୁ Update କଲେ, ସେହି ପରିବର୍ତ୍ତନ ସମଗ୍ର Design ରେ ସ୍ୱୟଂଚାଳିତ ଭାବରେ ଲାଗୁ ହୋଇଯାଏ। ଏହା Design System କୁ ବଡ଼ Project ପାଇଁ ସହଜରେ Manage ଏବଂ Maintain କରିବାରେ ସାହାଯ୍ୟ କରେ।</div>
+    </section>
+
+    <!-- Q6 -->
+    <section class="qa-block" id="q6">
+      <div class="question"><span class="q-num">Q6</span> What is Auto Layout?</div>
+      <div class="answer-en"><strong>Auto Layout</strong> helps create flexible and responsive designs. When I change the content, the frame automatically adjusts its size and spacing. It also helps maintain <strong>consistency</strong> and saves design time.</div>
+      <div class="answer-odia"><strong>Auto Layout</strong> ହେଉଛି Figma ର ଏକ Feature, ଯାହା Responsive ଏବଂ Flexible Design ତିଆରି କରିବାରେ ସାହାଯ୍ୟ କରେ। ଯେତେବେଳେ Content ବଦଳାଯାଏ, Frame ର Size, Padding ଏବଂ Spacing ସ୍ୱୟଂଚାଳିତ ଭାବରେ Adjust ହୋଇଯାଏ। ଏହା ଦ୍ୱାରା ସମସ୍ତ Screen ରେ Design ଏକରକମ (Consistency) ରହେ, Responsive Design ତିଆରି କରିବା ସହଜ ହୁଏ ଏବଂ Design କରିବାର ସମୟ ମଧ୍ୟ ବଞ୍ଚିଯାଏ।</div>
+    </section>
+
+    <!-- Q7 -->
+    <section class="qa-block" id="q7">
+      <div class="question"><span class="q-num">Q7</span> Difference between Components and Variants?</div>
+      <div class="answer-en">A <strong>Component</strong> is a reusable design element, like a button, card, or input field.<br><strong>Variants</strong> are different versions of the same component, such as Primary, Secondary, Hover, Active, or Disabled.<br>Using Components and Variants helps maintain <strong>consistency</strong>, saves time, and makes the Design System easier to manage.</div>
+      <div class="answer-odia"><strong>Component</strong> ହେଉଛି ଏକ Reusable Design Element, ଯେପରି Button, Card, Input Field କିମ୍ବା ଅନ୍ୟ କୌଣସି UI Element, ଯାହାକୁ ବାରମ୍ବାର ବିଭିନ୍ନ Screen ରେ ବ୍ୟବହାର କରାଯାଇପାରେ।<br><strong>Variant</strong> ହେଉଛି ସେହି ଏକେ Component ର ଭିନ୍ନ ଭିନ୍ନ Version କିମ୍ବା State, ଯେପରି Primary, Secondary, Hover, Active, Disabled ଇତ୍ୟାଦି।<br>Components ଏବଂ Variants ବ୍ୟବହାର କଲେ ସମଗ୍ର Design ରେ ଏକରୂପତା (Consistency) ରହେ, ସମୟ ବଞ୍ଚେ ଏବଂ Design System କୁ ସହଜରେ Manage ଏବଂ Maintain କରିହେବ।</div>
+    </section>
+
+    <!-- Q8 -->
+    <section class="qa-block" id="q8">
+      <div class="question"><span class="q-num">Q8</span> How do you conduct User Research?</div>
+      <div class="answer-en">First, I understand the business goals and target users. Then I conduct <strong>user interviews, surveys, competitor analysis</strong>, and discuss with stakeholders to understand user needs and pain points. Based on the findings, I prepare <strong>user personas, user journeys, and user flows</strong>.</div>
+      <div class="answer-odia">ପ୍ରଥମେ ମୁଁ Business Goal ଏବଂ Target User କିଏ, ସେଥିକୁ ଭଲଭାବରେ ବୁଝେ। ତାପରେ <strong>User Interview, Survey, Competitor Analysis</strong> କରେ ଏବଂ Stakeholder ଙ୍କ ସହ ଆଲୋଚନା କରି User ଙ୍କର ଆବଶ୍ୟକତା (Needs), ସମସ୍ୟା (Pain Points) ଏବଂ ଆଶା (Expectations) ବୁଝେ। ଏହି Research ରୁ ମିଳିଥିବା ସୂଚନା ଆଧାରରେ ମୁଁ <strong>User Persona, User Journey</strong> ଏବଂ <strong>User Flow</strong> ପ୍ରସ୍ତୁତ କରେ, ଯାହା ଆମକୁ User‑Centered Design ତିଆରି କରିବାରେ ସାହାଯ୍ୟ କରେ।</div>
+    </section>
+
+    <!-- Q9 -->
+    <section class="qa-block" id="q9">
+      <div class="question"><span class="q-num">Q9</span> What is Usability Testing?</div>
+      <div class="answer-en"><strong>Usability Testing</strong> means testing the product with real users. It helps us identify problems, collect feedback, and improve the user experience before development or release.</div>
+      <div class="answer-odia"><strong>Usability Testing</strong> ମାନେ ପ୍ରକୃତ User ଙ୍କ ସହ Product କୁ Test କରିବା। ଏହା ଦ୍ୱାରା User ମାନେ Product ବ୍ୟବହାର କରିବା ସମୟରେ କେଉଁଠି ସମସ୍ୟା ହେଉଛି, ତାହା ଜଣାପଡ଼େ। ସେମାନଙ୍କର Feedback ନେଇ ଆମେ Design କୁ Improve କରୁ, ଯାହାଦ୍ୱାରା Development କିମ୍ବା Product Release ପୂର୍ବରୁ User Experience କୁ ଆହୁରି ଭଲ କରିପାରିବା।</div>
+    </section>
+
+    <!-- Q10 -->
+    <section class="qa-block" id="q10">
+      <div class="question"><span class="q-num">Q10</span> Difference between Wireframe, Mockup, and Prototype?</div>
+      <div class="answer-en">A <strong>Wireframe</strong> is a basic layout that shows the page structure, content placement, and user flow without colors or images.<br>A <strong>Mockup</strong> is the visual design of the product. It includes colors, typography, icons, images, and branding, showing how the final interface will look.<br>A <strong>Prototype</strong> is a clickable version of the design. It connects all the screens with interactions and navigation, allowing users and stakeholders to experience and test the complete user flow before development.</div>
+      <div class="answer-odia"><strong>Wireframe</strong> ହେଉଛି ଗୋଟିଏ Basic Layout, ଯେଉଁଥିରେ Page ର Structure, Content କେଉଁଠି ରହିବ ଏବଂ User Flow ଦେଖାଯାଏ। ଏଥିରେ Color, Image କିମ୍ବା Visual Design ନଥାଏ।<br><strong>Mockup</strong> ହେଉଛି Product ର Visual Design। ଏଥିରେ Color, Typography, Icon, Image ଏବଂ Branding ଥାଏ, ଯାହାଦ୍ୱାରା Final Interface କିପରି ଦେଖାଯିବ ତାହା ବୁଝିହେବ।<br><strong>Prototype</strong> ହେଉଛି Design ର ଏକ Clickable Version। ଏଥିରେ ସମସ୍ତ Screen କୁ Interaction ଏବଂ Navigation ଦ୍ୱାରା Link କରାଯାଏ, ଯାହାଦ୍ୱାରା User ଏବଂ Stakeholder ସମ୍ପୂର୍ଣ୍ଣ User Flow କୁ ଅନୁଭବ କରିପାରନ୍ତି ଏବଂ Development ପୂର୍ବରୁ Product କିପରି କାମ କରିବ ତାହା Test କରିପାରନ୍ତି।</div>
+    </section>
+
+    <!-- Q11 -->
+    <section class="qa-block" id="q11">
+      <div class="question"><span class="q-num">Q11</span> How do you create User Personas?</div>
+      <div class="answer-en">I create user personas based on <strong>user research, interviews, surveys, and business requirements</strong>. A persona includes the user's goals, behaviour, pain points, and expectations. It helps the team design products that solve real user problems.</div>
+      <div class="answer-odia">ମୁଁ <strong>User Research, User Interview, Survey</strong> ଏବଂ <strong>Business Requirement</strong> ରୁ ମିଳିଥିବା ସୂଚନା ଆଧାରରେ User Persona ପ୍ରସ୍ତୁତ କରେ। ଏକ User Persona ରେ User ଙ୍କର Goal, Behaviour, Pain Point, Need ଏବଂ Expectation ରହିଥାଏ। ଏହା ଦ୍ୱାରା Team User ଙ୍କର ପ୍ରକୃତ ସମସ୍ୟା ଏବଂ ଆବଶ୍ୟକତାକୁ ଭଲଭାବରେ ବୁଝିପାରେ ଏବଂ ସେହି ଅନୁଯାୟୀ User‑Centered Product Design କରିପାରେ।</div>
+    </section>
+
+    <!-- Q12 -->
+    <section class="qa-block" id="q12">
+      <div class="question"><span class="q-num">Q12</span> How do you work with Developers?</div>
+      <div class="answer-en">I work closely with developers throughout the project. I explain the design, share <strong>Figma Dev Mode</strong>, design specifications, assets, and interactions. If developers have any questions, I discuss them and provide support until the project is completed.</div>
+      <div class="answer-odia">ମୁଁ Project ର ସମସ୍ତ ପର୍ଯ୍ୟାୟରେ Developer ମାନଙ୍କ ସହ ନିକଟରୁ କାମ କରେ। ମୁଁ ସେମାନଙ୍କୁ Design ବୁଝାଏ, <strong>Figma Dev Mode</strong> Share କରେ ଏବଂ Design Specification, Assets, Interaction ଏବଂ ଆବଶ୍ୟକ ସମସ୍ତ Detail ପ୍ରଦାନ କରେ। ଯଦି Development ସମୟରେ କୌଣସି ପ୍ରଶ୍ନ କିମ୍ବା ସମସ୍ୟା ଆସେ, ତେବେ ମୁଁ ସେମାନଙ୍କ ସହ ଆଲୋଚନା କରି ସମାଧାନ କରେ ଏବଂ Project ସଫଳତାର ସହିତ ସମ୍ପୂର୍ଣ୍ଣ ହେବା ପର୍ଯ୍ୟନ୍ତ Support କରେ।</div>
+    </section>
+
+    <!-- Q13 -->
+    <section class="qa-block" id="q13">
+      <div class="question"><span class="q-num">Q13</span> Tell me about a challenging UX project.</div>
+      <div class="answer-en">One challenging project was redesigning an existing product with many usability issues. I conducted research, collected user feedback, simplified the user flow, and improved the navigation. After the redesign, the user experience became much better and easier to use.</div>
+      <div class="answer-odia">ମୋର ଗୋଟିଏ Challenging Project ଥିଲା ଏକ ପୁରୁଣା Product କୁ Redesign କରିବା, ଯେଉଁଥିରେ ଅନେକ Usability ସମସ୍ୟା ଥିଲା। ପ୍ରଥମେ ମୁଁ <strong>User Research</strong> କରିଥିଲି, User ଙ୍କର Feedback ସଂଗ୍ରହ କରିଥିଲି ଏବଂ ସେମାନଙ୍କର ସମସ୍ୟା ବୁଝିଥିଲି। ତାପରେ ମୁଁ User Flow କୁ ସରଳ କରିଥିଲି, Navigation Improve କରିଥିଲି ଏବଂ ସମଗ୍ର User Experience କୁ ଆହୁରି ସହଜ ଏବଂ User‑Friendly କରିଥିଲି। Redesign ପରେ Product ବ୍ୟବହାର କରିବା ଅଧିକ ସହଜ ହୋଇଥିଲା ଏବଂ User Experience ରେ ଭଲ Improvement ଦେଖିବାକୁ ମିଳିଥିଲା।</div>
+    </section>
+
+    <!-- Q14 -->
+    <section class="qa-block" id="q14">
+      <div class="question"><span class="q-num">Q14</span> How do you mentor junior designers?</div>
+      <div class="answer-en">I regularly review their designs, share constructive feedback, and help them improve their <strong>UX thinking, Figma skills, and design process</strong>. I encourage them to ask questions, share their ideas, and learn from every project. I always maintain a friendly and supportive environment so they feel comfortable discussing their challenges and continuously improving their skills.</div>
+      <div class="answer-odia">ମୁଁ ନିୟମିତ ଭାବରେ Junior Designer ମାନଙ୍କର Design Review କରେ, ସେମାନଙ୍କୁ ଭଲ Feedback ଦିଏ ଏବଂ <strong>UX Thinking, Figma Skill</strong> ଓ Design Process କୁ Improve କରିବାରେ ସାହାଯ୍ୟ କରେ। ମୁଁ ସେମାନଙ୍କୁ ପ୍ରଶ୍ନ ପଚାରିବା, ନିଜର Idea Share କରିବା ଏବଂ ପ୍ରତ୍ୟେକ Project ରୁ ନୂଆ କିଛି ଶିଖିବା ପାଇଁ ସବୁବେଳେ ଉତ୍ସାହିତ କରେ। ମୁଁ ସବୁବେଳେ ଏକ Friendly ଏବଂ Supportive ପରିବେଶ ରଖିବାକୁ ଚେଷ୍ଟା କରେ, ଯାହାଦ୍ୱାରା Junior Designer ମାନେ ନିର୍ଭୟରେ ନିଜର ସମସ୍ୟା ଓ ଭାବନା Share କରିପାରନ୍ତି ଏବଂ ନିଜର Skill କୁ ଆହୁରି Improve କରିପାରନ୍ତି।</div>
+    </section>
+
+    <!-- Q15 -->
+    <section class="qa-block" id="q15">
+      <div class="question"><span class="q-num">Q15</span> How do you build a Design System from scratch?</div>
+      <div class="answer-en">First, I understand the product requirements, business goals, and user needs. Then I define the design foundation, including <strong>colors, typography, spacing, grids, icons, and design guidelines</strong>. After that, I create reusable components, variants, variables, and common UI patterns in Figma. Finally, I publish the <strong>Team Library</strong>, document the Design System, and keep it updated as the product grows.</div>
+      <div class="answer-odia">ପ୍ରଥମେ ମୁଁ Product Requirement, Business Goal ଏବଂ User ଙ୍କର ଆବଶ୍ୟକତାକୁ ଭଲଭାବରେ ବୁଝେ। ତାପରେ ମୁଁ Design ର ମୂଳ ଆଧାର (Foundation) ପ୍ରସ୍ତୁତ କରେ, ଯେପରି <strong>Color Palette, Typography, Spacing, Grid System, Icon</strong> ଏବଂ Design Guideline। ଏହା ପରେ ମୁଁ Figma ରେ Reusable Components, Variants, Variables ଏବଂ ସାଧାରଣ UI Pattern ତିଆରି କରେ, ଯାହାକୁ ସମସ୍ତ Project ରେ ପୁଣିଥରେ ବ୍ୟବହାର କରିହେବ। ଶେଷରେ ମୁଁ <strong>Team Library</strong> Publish କରେ, Design System ର Documentation ପ୍ରସ୍ତୁତ କରେ ଏବଂ Product ବଡ଼ ହେବା ସହିତ ଏହାକୁ ନିୟମିତ ଭାବରେ Update ଏବଂ Maintain କରେ।</div>
+    </section>
+
+    <!-- Q16 -->
+    <section class="qa-block" id="q16">
+      <div class="question"><span class="q-num">Q16</span> What is Accessibility (WCAG)?</div>
+      <div class="answer-en"><strong>Accessibility</strong> means designing products that everyone can use, including people with disabilities. I follow good color contrast, readable text, keyboard navigation, proper labels, and alt text to make the design accessible.</div>
+      <div class="answer-odia"><strong>Accessibility</strong> ମାନେ ଏପରି Product କିମ୍ବା Application Design କରିବା, ଯାହାକୁ ସମସ୍ତ User ସହଜରେ ବ୍ୟବହାର କରିପାରିବେ, ଅକ୍ଷମ (Disabled) User ମାନେ ମଧ୍ୟ। ମୁଁ Design କରିବା ସମୟରେ ଭଲ Color Contrast, ପଢ଼ିବାକୁ ସହଜ Font, Keyboard Navigation, ସଠିକ୍ Label, Alt Text ଏବଂ ସ୍ପଷ୍ଟ Focus State ଉପରେ ବିଶେଷ ଧ୍ୟାନ ଦିଏ, ଯାହାଦ୍ୱାରା ସମସ୍ତ User ସହଜରେ Product ବ୍ୟବହାର କରିପାରନ୍ତି।</div>
+    </section>
+
+    <!-- Q17 -->
+    <section class="qa-block" id="q17">
+      <div class="question"><span class="q-num">Q17</span> What is Information Architecture?</div>
+      <div class="answer-en"><strong>Information Architecture</strong> is the way we organize content and navigation so users can easily find what they need. A clear structure improves the overall user experience.</div>
+      <div class="answer-odia"><strong>Information Architecture</strong> ମାନେ ହେଉଛି Website କିମ୍ବା Application ର Content, Menu ଏବଂ Navigation କୁ ଠିକ୍ ଭାବରେ ସଂଗଠିତ (Organize) କରିବା, ଯାହାଦ୍ୱାରା User ସହଜରେ ନିଜକୁ ଦରକାର ଥିବା ସୂଚନା କିମ୍ବା Feature ଖୋଜିପାରିବେ। ଏକ ସ୍ପଷ୍ଟ ଏବଂ ସୁସଂଗଠିତ Structure User ଙ୍କର ଅନୁଭବକୁ (User Experience) ଭଲ କରେ, Navigation କୁ ସହଜ କରେ ଏବଂ User ଙ୍କର ସମୟ ବଞ୍ଚାଏ।</div>
+    </section>
+
+    <!-- Q18 -->
+    <section class="qa-block" id="q18">
+      <div class="question"><span class="q-num">Q18</span> How do you handle difficult stakeholders?</div>
+      <div class="answer-en">First, I listen carefully to their feedback and understand their concerns. Then I explain my design decisions with <strong>user research and business goals</strong>. If needed, I discuss different options and work together to find the best solution.</div>
+      <div class="answer-odia">ପ୍ରଥମେ ମୁଁ Stakeholder ଙ୍କର Feedback କୁ ଧ୍ୟାନର ସହିତ ଶୁଣେ ଏବଂ ସେମାନଙ୍କର ଚିନ୍ତା ଓ ଆଶାକୁ ବୁଝିବାକୁ ଚେଷ୍ଟା କରେ। ତାପରେ ମୁଁ <strong>User Research, User Need</strong> ଏବଂ <strong>Business Goal</strong> ଆଧାରରେ ମୋର Design Decision କୁ ସ୍ପଷ୍ଟ ଭାବରେ ବୁଝାଏ। ଯଦି ମତଭେଦ ଥାଏ, ତେବେ ମୁଁ ଭିନ୍ନ ଭିନ୍ନ Option ଉପରେ ଆଲୋଚନା କରେ ଏବଂ ସମସ୍ତଙ୍କ ସହ ମିଶି User ଏବଂ Business—ଉଭୟଙ୍କ ପାଇଁ ଭଲ ହେବାଭଳି ସର୍ବୋତ୍ତମ Solution ବାଛିଥାଏ।</div>
+    </section>
+
+    <!-- Q19 -->
+    <section class="qa-block" id="q19">
+      <div class="question"><span class="q-num">Q19</span> How do you conduct Design Reviews?</div>
+      <div class="answer-en">I review the design with my UX team, developers, and stakeholders. We discuss <strong>usability, consistency, accessibility, and business requirements</strong>. I collect feedback, improve the design, and finalize it before development.</div>
+      <div class="answer-odia">ମୁଁ UX Team, Developer ଏବଂ Stakeholder ଙ୍କ ସହ ମିଶି Design Review କରେ। ଆମେ Design ର <strong>Usability, Consistency, Accessibility</strong> ଏବଂ <strong>Business Requirement</strong> ଉପରେ ଆଲୋଚନା କରୁ। ସମସ୍ତଙ୍କର Feedback ସଂଗ୍ରହ କରି ଆବଶ୍ୟକ ପରିବର୍ତ୍ତନ କରେ ଏବଂ Design କୁ Improve କରେ। ସମସ୍ତଙ୍କର Approval ମିଳିବା ପରେ, ମୁଁ Design କୁ Finalize କରି Development ପାଇଁ ପ୍ରସ୍ତୁତ କରେ।</div>
+    </section>
+
+    <!-- Q20 -->
+    <section class="qa-block" id="q20">
+      <div class="question"><span class="q-num">Q20</span> How do you prioritize features?</div>
+      <div class="answer-en">I discuss business goals with stakeholders, understand user needs, and identify high-priority features. I focus on features that provide the <strong>most value to users and the business</strong>.</div>
+      <div class="answer-odia">ପ୍ରଥମେ ମୁଁ Stakeholder ଙ୍କ ସହ Business Goal ବିଷୟରେ ଆଲୋଚନା କରେ ଏବଂ User ଙ୍କର ଆବଶ୍ୟକତା ଓ ସମସ୍ୟାକୁ ବୁଝେ। ତାପରେ Business ପାଇଁ ଏବଂ User ପାଇଁ କେଉଁ Feature ସବୁଠାରୁ ଅଧିକ ମୂଲ୍ୟବାନ ଏବଂ ଜରୁରୀ, ସେଗୁଡ଼ିକୁ ପ୍ରାଥମିକତା (Priority) ଦିଏ। ମୁଁ ସବୁବେଳେ ସେହି Feature ଉପରେ ପ୍ରଥମେ କାମ କରିବାକୁ ଗୁରୁତ୍ୱ ଦିଏ, ଯାହା User Experience କୁ ଭଲ କରେ ଏବଂ Business Goal ପୂରଣ କରିବାରେ ସର୍ବାଧିକ ସାହାଯ୍ୟ କରେ।</div>
+    </section>
+
+    <!-- Q21 -->
+    <section class="qa-block" id="q21">
+      <div class="question"><span class="q-num">Q21</span> How do you use AI in UX Design?</div>
+      <div class="answer-en">I use AI tools like <strong>ChatGPT and Figma AI</strong> to generate ideas, improve content, create wireframe suggestions, and speed up repetitive tasks. However, I always review the output before using it in the final design.</div>
+      <div class="answer-odia">ମୁଁ <strong>ChatGPT, Figma AI</strong> ଏବଂ ଅନ୍ୟାନ୍ୟ AI Tool ବ୍ୟବହାର କରି ନୂଆ Idea ଖୋଜେ, Content Improve କରେ, Wireframe ପାଇଁ Suggestion ନିଏ ଏବଂ ବାରମ୍ବାର କରିବାକୁ ପଡ଼ୁଥିବା କାମ (Repetitive Task) କୁ ଶୀଘ୍ର ସମ୍ପୂର୍ଣ୍ଣ କରେ। କିନ୍ତୁ AI ଯାହା Suggestion ଦିଏ, ତାହାକୁ ମୁଁ କେବେ ସିଧାସଳଖ Final Design ରେ ବ୍ୟବହାର କରେ ନାହିଁ। ପ୍ରଥମେ ମୁଁ ତାହାକୁ Review କରେ, User ଙ୍କର ଆବଶ୍ୟକତା ଏବଂ Business Goal ସହ ମେଳ କରି ଯାଞ୍ଚ କରେ, ତାପରେ Final Design ରେ ବ୍ୟବହାର କରେ।</div>
+    </section>
+
+    <!-- Q22 -->
+    <section class="qa-block" id="q22">
+      <div class="question"><span class="q-num">Q22</span> Why should we hire you?</div>
+      <div class="answer-en">I have strong experience in <strong>UX Design, Figma, Design Systems, and team collaboration</strong>.<br>I enjoy solving user problems, mentoring team members, and working closely with stakeholders and developers.<br>I believe I can add value to your team and contribute to building better user experiences.</div>
+      <div class="answer-odia">ମୋର <strong>UX Design, Figma, Design System</strong> ଏବଂ <strong>Team Collaboration</strong> ରେ ଭଲ ଅନୁଭବ ଅଛି।<br>ମୁଁ User ଙ୍କର ସମସ୍ୟା ବୁଝି ତାହାର ସମାଧାନ କରିବାକୁ ପସନ୍ଦ କରେ। ମୁଁ Junior Team Member ମାନଙ୍କୁ Guide କରିବା, Stakeholder ଏବଂ Developer ମାନଙ୍କ ସହ ଭଲ Coordination ରଖି କାମ କରିବାରେ ବିଶ୍ୱାସ କରେ।<br>ମୁଁ ଦ୍ରୁତ ଶିଖିବାକୁ ପସନ୍ଦ କରେ, ନୂଆ Technology ଏବଂ Design Trend ସହ ନିଜକୁ ସବୁବେଳେ Update ରଖେ।<br>ମୋର ବିଶ୍ୱାସ ଯେ ମୋର Experience, Skill ଏବଂ Positive Attitude ଦ୍ୱାରା ମୁଁ ଆପଣଙ୍କ Team ପାଇଁ ଭଲ Value Add କରିପାରିବି ଏବଂ ଏକ ଉତ୍ତମ User Experience ତିଆରି କରିବାରେ ମୋର ଅବଦାନ ରଖିପାରିବି।</div>
+    </section>
+
+    <div class="footer-note">
+      <i>✨ Rakesh Nayak · UI/UX Design Lead · Interview Q&amp;A · Figma · Design Systems</i>
+    </div>
+  </main>
+</div>
+
+<!-- small script for sidebar active highlight -->
+<script>
+  (function() {
+    const links = document.querySelectorAll('.sidebar-nav a');
+    const sections = document.querySelectorAll('.qa-block');
+
+    function updateActive() {
+      let currentId = '';
+      sections.forEach(sec => {
+        const rect = sec.getBoundingClientRect();
+        if (rect.top <= 120 && rect.bottom >= 120) {
+          currentId = sec.id;
+        }
+      });
+      links.forEach(link => {
+        link.classList.toggle('active', link.getAttribute('href') === '#' + currentId);
+      });
+    }
+
+    // initial call
+    setTimeout(updateActive, 100);
+    window.addEventListener('scroll', updateActive);
+    // also on resize
+    window.addEventListener('resize', updateActive);
+  })();
+</script>
+</body>
+</html>
